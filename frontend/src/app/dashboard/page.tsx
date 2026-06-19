@@ -1,6 +1,7 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
+import { predictSuccess } from '@/lib/api';
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   BarChart, Bar
@@ -59,19 +60,48 @@ function StatCard({ title, value, change, trend, icon: Icon }: any) {
 }
 
 export default function DashboardPage() {
+  const [atsScore, setAtsScore] = useState(84);
+  const [numSkills, setNumSkills] = useState(15);
+  const [predictions, setPredictions] = useState({ interview_probability: 85, offer_probability: 65 });
+
+  const calculatePredictions = async () => {
+    try {
+      const res = await predictSuccess(atsScore, numSkills);
+      setPredictions(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Overview</h1>
-        <p className="text-muted-foreground">Here&apos;s what&apos;s happening with your career growth.</p>
+      <div className="flex justify-between items-end">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Overview</h1>
+          <p className="text-muted-foreground">Here&apos;s what&apos;s happening with your career growth.</p>
+        </div>
+        
+        <div className="flex gap-4 items-center bg-background p-3 rounded-xl border border-border shadow-sm">
+          <div>
+            <label className="text-xs font-semibold block text-muted-foreground">ATS Score</label>
+            <input type="number" value={atsScore} onChange={e => setAtsScore(Number(e.target.value))} className="w-16 p-1 border rounded" />
+          </div>
+          <div>
+            <label className="text-xs font-semibold block text-muted-foreground">Skills</label>
+            <input type="number" value={numSkills} onChange={e => setNumSkills(Number(e.target.value))} className="w-16 p-1 border rounded" />
+          </div>
+          <button onClick={calculatePredictions} className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium text-sm">
+            Recalculate AI Probability
+          </button>
+        </div>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Average ATS Score" value="84%" change="+12%" trend="up" icon={FileText} />
+        <StatCard title="Average ATS Score" value={`${atsScore}%`} change="+12%" trend="up" icon={FileText} />
         <StatCard title="Applications Sent" value="142" change="+24" trend="up" icon={Briefcase} />
-        <StatCard title="Interview Readiness" value="76%" change="+5%" trend="up" icon={Target} />
-        <StatCard title="Hiring Probability" value="High" change="Increased" trend="up" icon={TrendingUp} />
+        <StatCard title="Interview Readiness" value={`${predictions.interview_probability}%`} change="+5%" trend="up" icon={Target} />
+        <StatCard title="Offer Probability" value={`${predictions.offer_probability}%`} change="AI Predicted" trend="up" icon={TrendingUp} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
