@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { BookOpen, Video, Code, Box, Trophy, Route, Loader2, ArrowRight } from 'lucide-react';
 import { generateRoadmap } from '@/lib/api';
 import Editor from '@monaco-editor/react';
+import Link from 'next/link';
 
 const categories = [
   { name: 'Data Structures & Algorithms', icon: Code, count: 124 },
@@ -359,9 +360,9 @@ export default function LearningResourcesPage() {
                   </p>
                 </div>
                 <div className="relative z-10 mt-auto">
-                  <button className="w-full bg-background text-foreground border border-border px-4 py-2.5 rounded-xl font-medium shadow-sm hover:bg-secondary transition flex items-center justify-center gap-2">
+                  <Link href="/dashboard/learning/system-design" className="w-full bg-background text-foreground border border-border px-4 py-2.5 rounded-xl font-medium shadow-sm hover:bg-secondary transition flex items-center justify-center gap-2">
                     <Box className="w-4 h-4" /> Enter Lab
-                  </button>
+                  </Link>
                 </div>
                 <div className="absolute -right-12 -bottom-12 opacity-10 pointer-events-none">
                   <Box className="w-48 h-48" />
@@ -380,9 +381,9 @@ export default function LearningResourcesPage() {
                   </p>
                 </div>
                 <div className="relative z-10 mt-auto">
-                  <button className="w-full bg-background text-foreground border border-border px-4 py-2.5 rounded-xl font-medium shadow-sm hover:bg-secondary transition flex items-center justify-center gap-2">
+                  <Link href="/dashboard/learning/behavioral" className="w-full bg-background text-foreground border border-border px-4 py-2.5 rounded-xl font-medium shadow-sm hover:bg-secondary transition flex items-center justify-center gap-2">
                     <Video className="w-4 h-4" /> Start Interview
-                  </button>
+                  </Link>
                 </div>
                 <div className="absolute -right-12 -bottom-12 opacity-10 pointer-events-none text-blue-500">
                   <Video className="w-48 h-48" />
@@ -400,9 +401,9 @@ export default function LearningResourcesPage() {
                     <p className="text-sm text-muted-foreground mb-4">
                       Build fully functional React components (like Image Carousels or Kanban Boards) in an embedded CodeSandbox. Get real-time AI code reviews on accessibility and performance.
                     </p>
-                    <button className="bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-medium shadow-sm hover:bg-emerald-600 transition flex items-center gap-2">
+                    <Link href="/dashboard/learning/frontend-studio" className="inline-flex bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-medium shadow-sm hover:bg-emerald-600 transition items-center gap-2 w-fit">
                       <Code className="w-4 h-4" /> Open Studio
-                    </button>
+                    </Link>
                   </div>
                   <div className="hidden md:block w-32 h-32 opacity-20 text-emerald-500 pointer-events-none">
                     <BookOpen className="w-full h-full" />
