@@ -31,6 +31,14 @@
 
 The modern job search is broken. **TalentPilot AI** provides candidates with an end-to-end, highly scalable platform to master their career trajectory. By merging Large Language Models, Retrieval-Augmented Generation (RAG), and advanced Machine Learning classification, TalentPilot acts as a personal career strategist—helping candidates optimize their resumes, practice live interviews, learn targeted skills, and track their applications until they land the offer.
 
+## 🤖 Applied Machine Learning & AI
+
+Unlike standalone Jupyter Notebooks, TalentPilot is a **Full-Stack Applied AI/ML Platform** that takes machine learning models and deploys them into a scalable, production-ready SaaS environment:
+- **Natural Language Processing (NLP)**: LLMs (via OpenAI/LangChain) parse, rewrite, and analyze resumes using the STAR method.
+- **Retrieval-Augmented Generation (RAG)**: ChromaDB acts as a local Vector Database, storing text embeddings to intelligently retrieve contextual career guidance.
+- **Predictive Modeling**: Scikit-learn and Numpy pipelines process ATS match scores and skill-mapping to forecast interview and job offer probabilities.
+- **Generative AI**: The Interview Copilot and Premium Labs dynamically generate context-aware technical/behavioral dialogue and code reviews in real-time.
+
 ## ✨ Core Features
 
 - 🧠 **AI Resume Optimizer**: Deep analysis of resumes to rewrite bullet points using the STAR method for maximum ATS compliance and human readability.
