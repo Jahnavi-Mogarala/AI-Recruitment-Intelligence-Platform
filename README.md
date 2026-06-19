@@ -1,6 +1,8 @@
 <div align="center">
   <img src="https://via.placeholder.com/1200x400.png?text=TalentPilot+AI" alt="TalentPilot AI Logo" width="100%">
   
+  https://ai-recruitment-intelligence-platfor.vercel.app/
+  
   <h1>TalentPilot AI: From Resume to Offer</h1>
   
   <p>
@@ -147,4 +149,4 @@ npm run dev
 - [ ] Fine-tuned open-source LLMs (Llama 3) for cost-effective, private local processing.
 
 ## 📄 License
-This project is proprietary and built for demonstration and portfolio purposes. All rights reserved.
+This project is proprietary and built for demonstration and portfolio purposes.
