@@ -47,15 +47,13 @@ export async function evaluateAnswer(question: string, answer: string) {
 }
 
 export async function generateRoadmap(targetRole: string, currentSkills: string[]) {
-  // Sending list as query params might be tricky, better if it was JSON body.
-  // The FastAPI endpoint uses query params for both right now (`target_role: str, current_skills: list[str]`).
-  // In FastAPI, list query params are like ?current_skills=A&current_skills=B
-  const params = new URLSearchParams();
-  params.append("target_role", targetRole);
-  currentSkills.forEach(skill => params.append("current_skills", skill));
-
-  const res = await fetch(`${API_BASE}/roadmap/generate?${params.toString()}`, {
+  const res = await fetch(`${API_BASE}/roadmap/generate`, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      target_role: targetRole,
+      current_skills: currentSkills
+    })
   });
   if (!res.ok) throw new Error("Failed to generate roadmap");
   return res.json();

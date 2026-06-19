@@ -7,7 +7,8 @@ def generate_career_roadmap(target_role: str, current_skills: list[str]) -> dict
     """
     Generates a step-by-step career learning roadmap to achieve a target role.
     """
-    if os.environ.get("OPENAI_API_KEY") == "dummy-key-for-now":
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key or api_key == "dummy-key-for-now":
         return {
             "role": target_role,
             "estimated_months": 6,
