@@ -88,27 +88,27 @@ export default function ResumeStudioPage() {
             {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Analyze with AI"}
           </button>
 
-          {analysisResult && (
+          {analysisResult && analysisResult.analysis && (
             <div className="mt-6 space-y-4 border-t border-border pt-6">
               <div className="flex justify-between items-center">
                 <span className="font-semibold">ATS Score</span>
-                <span className={cn("text-xl font-bold", analysisResult.insights.ats_score > 75 ? "text-emerald-500" : "text-amber-500")}>
-                  {analysisResult.insights.ats_score}/100
+                <span className={cn("text-xl font-bold", analysisResult.analysis.ats_score > 75 ? "text-emerald-500" : "text-amber-500")}>
+                  {analysisResult.analysis.ats_score}/100
                 </span>
               </div>
               <div>
                 <span className="font-semibold block mb-2">Detected Skills</span>
                 <div className="flex flex-wrap gap-2">
-                  {analysisResult.insights.skills.map((s: string, i: number) => (
+                  {analysisResult.analysis.skills?.map((s: string, i: number) => (
                     <span key={i} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-md">{s}</span>
                   ))}
                 </div>
               </div>
-              {analysisResult.insights.weaknesses.length > 0 && (
+              {analysisResult.analysis.weaknesses?.length > 0 && (
                 <div>
                   <span className="font-semibold block mb-2 text-destructive">Weaknesses</span>
                   <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                    {analysisResult.insights.weaknesses.map((w: string, i: number) => (
+                    {analysisResult.analysis.weaknesses.map((w: string, i: number) => (
                       <li key={i}>{w}</li>
                     ))}
                   </ul>
