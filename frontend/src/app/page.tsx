@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { SplashScreen } from '@/components/SplashScreen';
 import { Logo } from '@/components/Logo';
-import { ArrowRight, Sparkles, Target, Zap } from 'lucide-react';
+import { ArrowRight, Sparkles, Target, Zap, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {

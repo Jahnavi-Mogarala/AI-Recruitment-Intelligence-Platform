@@ -47,7 +47,7 @@ export default function LearningResourcesPage() {
               <Route className="w-5 h-5 text-primary" /> AI Career Roadmap
             </h2>
             <p className="text-sm text-muted-foreground mb-6">
-              Tell us your target role and current skills, and we'll generate a step-by-step learning plan for you.
+              Tell us your target role and current skills, and we&apos;ll generate a step-by-step learning plan for you.
             </p>
             
             <div className="space-y-4">
