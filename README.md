@@ -1,9 +1,8 @@
-<div align="center">
-  <img src="https://via.placeholder.com/1200x400.png?text=TalentPilot+AI" alt="TalentPilot AI Logo" width="100%">
-  
-  https://ai-recruitment-intelligence-platfor.vercel.app/
   
   <h1>TalentPilot AI: From Resume to Offer</h1>
+
+  
+  https://ai-recruitment-intelligence-platfor.vercel.app/
   
   <p>
     <strong>A next-generation, production-grade AI Recruitment Intelligence SaaS</strong><br>
