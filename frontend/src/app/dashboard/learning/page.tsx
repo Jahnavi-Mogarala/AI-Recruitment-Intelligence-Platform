@@ -311,23 +311,78 @@ export default function LearningResourcesPage() {
             </div>
           )}
 
-          {/* System Design Lab Teaser */}
-          <div className="bg-gradient-to-br from-primary/10 to-purple-500/10 border border-primary/20 rounded-2xl p-8 relative overflow-hidden">
-            <div className="relative z-10 max-w-2xl">
-              <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold mb-4">
-                PREMIUM LAB
-              </span>
-              <h2 className="text-3xl font-bold mb-4">Interactive System Design Lab</h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Practice designing Netflix, Uber, and WhatsApp with our interactive Excalidraw integration and real-time AI feedback.
-              </p>
-              <button className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-medium shadow-sm hover:bg-primary/90 transition">
-                Enter Lab
-              </button>
+          {/* Premium Labs Section */}
+          <div className="mt-12 space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Trophy className="w-5 h-5 text-purple-500" /> Premium Interactive Labs
+              </h2>
             </div>
-            
-            <div className="absolute -right-20 -bottom-20 opacity-10 pointer-events-none">
-              <Box className="w-96 h-96" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              
+              {/* Lab 1: System Design */}
+              <div className="bg-gradient-to-br from-primary/10 to-purple-500/10 border border-primary/20 rounded-2xl p-6 relative overflow-hidden flex flex-col">
+                <div className="relative z-10 flex-1">
+                  <span className="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-bold mb-3 uppercase tracking-wider">
+                    Most Popular
+                  </span>
+                  <h3 className="text-xl font-bold mb-2">System Design Canvas</h3>
+                  <p className="text-sm text-muted-foreground mb-6">
+                    Practice designing Netflix, Uber, and WhatsApp with our interactive Excalidraw integration and real-time AI architectural feedback.
+                  </p>
+                </div>
+                <div className="relative z-10 mt-auto">
+                  <button className="w-full bg-background text-foreground border border-border px-4 py-2.5 rounded-xl font-medium shadow-sm hover:bg-secondary transition flex items-center justify-center gap-2">
+                    <Box className="w-4 h-4" /> Enter Lab
+                  </button>
+                </div>
+                <div className="absolute -right-12 -bottom-12 opacity-10 pointer-events-none">
+                  <Box className="w-48 h-48" />
+                </div>
+              </div>
+
+              {/* Lab 2: Behavioral Mock Interview */}
+              <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-2xl p-6 relative overflow-hidden flex flex-col">
+                <div className="relative z-10 flex-1">
+                  <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-500 text-[10px] font-bold mb-3 uppercase tracking-wider">
+                    Audio Enabled
+                  </span>
+                  <h3 className="text-xl font-bold mb-2">AI Behavioral Interviewer</h3>
+                  <p className="text-sm text-muted-foreground mb-6">
+                    Conduct a live voice-to-voice mock interview. The AI will grill you on Amazon Leadership Principles and STAR method.
+                  </p>
+                </div>
+                <div className="relative z-10 mt-auto">
+                  <button className="w-full bg-background text-foreground border border-border px-4 py-2.5 rounded-xl font-medium shadow-sm hover:bg-secondary transition flex items-center justify-center gap-2">
+                    <Video className="w-4 h-4" /> Start Interview
+                  </button>
+                </div>
+                <div className="absolute -right-12 -bottom-12 opacity-10 pointer-events-none text-blue-500">
+                  <Video className="w-48 h-48" />
+                </div>
+              </div>
+
+              {/* Lab 3: Frontend Component Builder */}
+              <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 rounded-2xl p-6 relative overflow-hidden flex flex-col lg:col-span-2">
+                <div className="relative z-10 flex-1 flex flex-col md:flex-row gap-6 items-center">
+                  <div className="flex-1">
+                    <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-500 text-[10px] font-bold mb-3 uppercase tracking-wider">
+                      New Release
+                    </span>
+                    <h3 className="text-xl font-bold mb-2">Frontend Architecture Studio</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Build fully functional React components (like Image Carousels or Kanban Boards) in an embedded CodeSandbox. Get real-time AI code reviews on accessibility and performance.
+                    </p>
+                    <button className="bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-medium shadow-sm hover:bg-emerald-600 transition flex items-center gap-2">
+                      <Code className="w-4 h-4" /> Open Studio
+                    </button>
+                  </div>
+                  <div className="hidden md:block w-32 h-32 opacity-20 text-emerald-500 pointer-events-none">
+                    <BookOpen className="w-full h-full" />
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
