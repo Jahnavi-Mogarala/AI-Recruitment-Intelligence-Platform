@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { BookOpen, Video, Code, Box, Trophy, Route, Loader2, ArrowRight } from 'lucide-react';
 import { generateRoadmap } from '@/lib/api';
+import Editor from '@monaco-editor/react';
 
 const categories = [
   { name: 'Data Structures & Algorithms', icon: Code, count: 124 },
@@ -149,9 +150,18 @@ export default function LearningResourcesPage() {
                     setIsRunning(true);
                     setTerminalOutput("Compiling...");
                     setTimeout(() => {
-                      setTerminalOutput("Running Test Cases...\nTest Case 1: Passed\nTest Case 2: Passed\nTest Case 3: Passed\n\nResult: ACCEPTED! 🎉");
-                      setIsRunning(false);
-                    }, 1500);
+                      setTerminalOutput("Running Test Cases.");
+                      let count = 1;
+                      const interval = setInterval(() => {
+                        count++;
+                        setTerminalOutput("Running Test Cases" + ".".repeat(count));
+                        if (count >= 4) {
+                          clearInterval(interval);
+                          setTerminalOutput("Running Test Cases...\nTest Case 1: Passed ✅\nTest Case 2: Passed ✅\nTest Case 3: Passed ✅\n\nResult: ACCEPTED! 🎉");
+                          setIsRunning(false);
+                        }
+                      }, 300);
+                    }, 500);
                   }}
                   disabled={isRunning}
                   className="bg-secondary text-foreground px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-secondary/80 flex items-center gap-2"
@@ -162,11 +172,20 @@ export default function LearningResourcesPage() {
                 <button 
                   onClick={() => {
                     setIsRunning(true);
-                    setTerminalOutput("Submitting solution...");
+                    setTerminalOutput("Submitting solution to evaluator...");
                     setTimeout(() => {
-                      setTerminalOutput("Submission Successful! \nRuntime: 52 ms (Beats 98.2%)\nMemory: 41.2 MB (Beats 84.1%)");
-                      setIsRunning(false);
-                    }, 2000);
+                      setTerminalOutput("Running extensive hidden tests.");
+                      let count = 1;
+                      const interval = setInterval(() => {
+                        count++;
+                        setTerminalOutput("Running extensive hidden tests" + ".".repeat(count));
+                        if (count >= 4) {
+                          clearInterval(interval);
+                          setTerminalOutput("Submission Successful! \n\nRuntime: 52 ms (Beats 98.2%)\nMemory: 41.2 MB (Beats 84.1%)\nComplexity: O(N) Time, O(1) Space.");
+                          setIsRunning(false);
+                        }
+                      }, 300);
+                    }, 500);
                   }}
                   disabled={isRunning}
                   className="bg-primary text-primary-foreground px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-primary/90 flex items-center gap-2"
@@ -187,13 +206,21 @@ export default function LearningResourcesPage() {
               </div>
 
               {/* Code Editor Panel */}
-              <div className="w-full lg:w-2/3 flex flex-col bg-[#0d1117]">
+              <div className="w-full lg:w-2/3 flex flex-col bg-[#0d1117] relative">
                 <div className="flex-1 relative">
-                  <textarea 
-                    className="w-full h-full bg-transparent text-gray-300 font-mono text-sm p-4 outline-none resize-none"
+                  <Editor
+                    height="100%"
+                    defaultLanguage="javascript"
+                    theme="vs-dark"
                     value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    spellCheck={false}
+                    onChange={(value) => setCode(value || "")}
+                    options={{
+                      minimap: { enabled: false },
+                      fontSize: 14,
+                      scrollBeyondLastLine: false,
+                      wordWrap: "on",
+                      padding: { top: 16 }
+                    }}
                   />
                 </div>
                 
