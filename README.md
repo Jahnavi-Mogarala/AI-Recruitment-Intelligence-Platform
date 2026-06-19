@@ -10,6 +10,10 @@ Build a complete production-grade SaaS platform that helps candidates improve re
 - **RAG Knowledge System**: Interactive career guidance based on embedded documents via ChromaDB.
 - **Interview Copilot**: Generates tailored Technical and Behavioral interview questions, with AI-driven grading.
 - **Career Roadmap**: Generates structured, month-by-month learning pathways to achieve target roles.
+- **Premium Interactive Labs (NEW!)**:
+  - **System Design Canvas**: Architecture design playground with an AI Co-Architect providing real-time feedback.
+  - **AI Behavioral Interviewer**: Voice-to-voice mock interviews focusing on the STAR method and Leadership Principles with live audio visualizers.
+  - **Frontend Architecture Studio**: Live React CodeSandbox environment with real-time accessibility (a11y) and performance AI audits.
 - **Application Tracker**: Kanban pipeline to track job applications from applied to offer.
 - **ML Hiring Predictor**: Predicts interview and offer probabilities based on ATS scoring and skill mapping.
 - **Real-Time Dashboards**: Powered by WebSockets to push live updates to the user.
