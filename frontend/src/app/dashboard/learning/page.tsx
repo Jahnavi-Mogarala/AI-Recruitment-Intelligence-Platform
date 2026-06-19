@@ -11,34 +11,32 @@ const categories = [
   { name: 'Behavioral Interviews', icon: Trophy, count: 28 },
 ];
 
-const mockResources = {
+const mockResources: Record<string, any[]> = {
   'Data Structures & Algorithms': [
-    { title: 'Two Sum', difficulty: 'Easy', type: 'Array', link: '#' },
-    { title: 'Reverse Linked List', difficulty: 'Easy', type: 'Linked List', link: '#' },
-    { title: 'LRU Cache', difficulty: 'Medium', type: 'Design', link: '#' },
-    { title: 'Merge Intervals', difficulty: 'Medium', type: 'Array', link: '#' },
-    { title: 'Trapping Rain Water', difficulty: 'Hard', type: 'Two Pointers', link: '#' },
-    { title: 'Binary Tree Level Order Traversal', difficulty: 'Medium', type: 'Tree', link: '#' },
-    { title: 'Course Schedule', difficulty: 'Medium', type: 'Graph', link: '#' },
-    { title: 'Word Search II', difficulty: 'Hard', type: 'Trie', link: '#' },
+    { 
+      title: 'Two Sum', difficulty: 'Easy', type: 'Array', link: '#',
+      description: 'Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\n**Example 1:**\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]',
+      starterCode: 'function twoSum(nums, target) {\n  // Write your code here\n  \n}'
+    },
+    { 
+      title: 'Reverse Linked List', difficulty: 'Easy', type: 'Linked List', link: '#',
+      description: 'Given the `head` of a singly linked list, reverse the list, and return the reversed list.\n\n**Example 1:**\nInput: head = [1,2,3,4,5]\nOutput: [5,4,3,2,1]',
+      starterCode: '/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\nfunction reverseList(head) {\n  \n}'
+    },
+    { title: 'LRU Cache', difficulty: 'Medium', type: 'Design', link: '#', description: 'Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.', starterCode: 'class LRUCache {\n  constructor(capacity) {\n  }\n}' },
+    { title: 'Merge Intervals', difficulty: 'Medium', type: 'Array', link: '#', description: 'Given an array of intervals, merge all overlapping intervals.', starterCode: 'function merge(intervals) {\n}' },
+    { title: 'Trapping Rain Water', difficulty: 'Hard', type: 'Two Pointers', link: '#', description: 'Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.', starterCode: 'function trap(height) {\n}' },
   ],
   'System Design': [
-    { title: 'Design a URL Shortener', difficulty: 'Medium', type: 'Architecture', link: '#' },
-    { title: 'Design Twitter', difficulty: 'Hard', type: 'Architecture', link: '#' },
-    { title: 'Design a Key-Value Store', difficulty: 'Medium', type: 'Database', link: '#' },
-    { title: 'Design YouTube or Netflix', difficulty: 'Hard', type: 'Streaming', link: '#' },
-    { title: 'Design a Rate Limiter', difficulty: 'Medium', type: 'API', link: '#' },
+    { title: 'Design a URL Shortener', difficulty: 'Medium', type: 'Architecture', link: '#', description: 'Design a service like TinyURL.', starterCode: '// Pseudocode your architecture here\n// 1. API Endpoints\n// 2. Database Schema\n// 3. High Level Design' },
+    { title: 'Design Twitter', difficulty: 'Hard', type: 'Architecture', link: '#', description: 'Design Twitter timeline and tweeting.', starterCode: '// Architecture details' },
   ],
   'Frontend Architecture': [
-    { title: 'Build a Virtual DOM', difficulty: 'Hard', type: 'React Core', link: '#' },
-    { title: 'Design an Image Carousel', difficulty: 'Medium', type: 'UI Component', link: '#' },
-    { title: 'Implement Debounce & Throttle', difficulty: 'Easy', type: 'JavaScript', link: '#' },
-    { title: 'Micro-Frontend Orchestration', difficulty: 'Hard', type: 'Architecture', link: '#' },
+    { title: 'Build a Virtual DOM', difficulty: 'Hard', type: 'React Core', link: '#', description: 'Implement a minimal virtual DOM algorithm.', starterCode: 'function render(vdom, container) {\n}' },
+    { title: 'Implement Debounce & Throttle', difficulty: 'Easy', type: 'JavaScript', link: '#', description: 'Implement debounce function from scratch.', starterCode: 'function debounce(func, wait) {\n}' },
   ],
   'Behavioral Interviews': [
-    { title: 'Tell me about a time you failed', difficulty: 'Medium', type: 'Soft Skills', link: '#' },
-    { title: 'How do you handle conflict?', difficulty: 'Medium', type: 'Teamwork', link: '#' },
-    { title: 'Describe a complex technical challenge', difficulty: 'Hard', type: 'Leadership', link: '#' },
+    { title: 'Tell me about a time you failed', difficulty: 'Medium', type: 'Soft Skills', link: '#', description: 'Write down bullet points outlining your STAR response for a failure.', starterCode: 'Situation:\nTask:\nAction:\nResult:' },
   ],
 };
 
@@ -48,6 +46,17 @@ export default function LearningResourcesPage() {
   const [generating, setGenerating] = useState(false);
   const [roadmap, setRoadmap] = useState<any>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  
+  const [selectedQuestion, setSelectedQuestion] = useState<any>(null);
+  const [code, setCode] = useState("");
+  const [isRunning, setIsRunning] = useState(false);
+  const [terminalOutput, setTerminalOutput] = useState<string | null>(null);
+
+  const handleSolveClick = (resource: any) => {
+    setSelectedQuestion(resource);
+    setCode(resource.starterCode || '// Start writing code here');
+    setTerminalOutput(null);
+  };
 
   const handleGenerateRoadmap = async () => {
     if (!role || !skills) return;
@@ -65,14 +74,17 @@ export default function LearningResourcesPage() {
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">Learning Hub</h1>
-        <p className="text-muted-foreground">Curated resources and AI-generated roadmaps to bridge your skill gaps.</p>
-      </div>
+      {selectedQuestion ? null : (
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Learning Hub</h1>
+          <p className="text-muted-foreground">Curated resources and AI-generated roadmaps to bridge your skill gaps.</p>
+        </div>
+      )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className={selectedQuestion ? "block" : "grid grid-cols-1 lg:grid-cols-3 gap-8"}>
         
         {/* Left Column: Roadmap Generator */}
+        {!selectedQuestion && (
         <div className="lg:col-span-1 space-y-6">
           <div className="bg-background p-6 rounded-2xl border border-border shadow-sm">
             <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -113,89 +125,175 @@ export default function LearningResourcesPage() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Right Column: Generated Roadmap & Static Content */}
-        <div className="lg:col-span-2 space-y-8">
-          {roadmap ? (
-            <div className="bg-background p-6 rounded-2xl border border-primary/20 shadow-sm relative overflow-hidden">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h2 className="text-xl font-bold mb-2">Your 6-Month Roadmap to {roadmap.role}</h2>
-                  <p className="text-sm text-muted-foreground">Estimated Timeline: {roadmap.estimated_months} months</p>
-                </div>
-                <button onClick={() => setRoadmap(null)} className="text-sm text-muted-foreground hover:text-foreground">
-                  &larr; Back to Hub
-                </button>
-              </div>
-              
-              <div className="space-y-6">
-                {roadmap.phases.map((phase: any, idx: number) => (
-                  <div key={idx} className="relative pl-8 before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-0.5 before:bg-border last:before:hidden">
-                    <div className="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center z-10">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
-                    </div>
-                    <div className="bg-secondary/30 rounded-xl p-4 border border-border">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-bold">{phase.name}</h3>
-                        <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-md">{phase.duration}</span>
-                      </div>
-                      
-                      <div className="mb-3">
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Skills to Learn</p>
-                        <div className="flex flex-wrap gap-2">
-                          {phase.skills_to_learn.map((s: string, i: number) => (
-                            <span key={i} className="text-xs bg-background border border-border px-2 py-1 rounded-md">{s}</span>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Resources</p>
-                        <ul className="space-y-1">
-                          {phase.resources.map((r: string, i: number) => (
-                            <li key={i} className="text-sm flex items-center gap-2">
-                              <ArrowRight className="w-3 h-3 text-primary" /> {r}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : activeCategory ? (
-            <div className="bg-background p-6 rounded-2xl border border-border shadow-sm">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold flex items-center gap-2">
-                  {categories.find(c => c.name === activeCategory)?.name} Resources
-                </h2>
-                <button onClick={() => setActiveCategory(null)} className="text-sm text-muted-foreground hover:text-foreground">
-                  &larr; Back to Hub
-                </button>
-              </div>
-              <div className="space-y-4">
-                {(mockResources[activeCategory as keyof typeof mockResources] || []).map((resource, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 bg-secondary/30 rounded-xl border border-border hover:border-primary/50 transition cursor-pointer">
-                    <div>
-                      <h3 className="font-semibold text-foreground">{resource.title}</h3>
-                      <p className="text-xs text-muted-foreground mt-1">{resource.type}</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className={`text-xs px-2 py-1 rounded-md font-semibold ${
-                        resource.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-500' :
-                        resource.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-500' :
+        {selectedQuestion ? (
+          <div className="lg:col-span-3 bg-background border border-border rounded-2xl shadow-sm overflow-hidden flex flex-col" style={{ minHeight: '700px' }}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-secondary/20">
+              <div className="flex items-center gap-3">
+                <button onClick={() => setSelectedQuestion(null)} className="text-sm font-medium hover:text-primary">&larr; Back to Resources</button>
+                <div className="w-px h-4 bg-border" />
+                <h2 className="font-semibold">{selectedQuestion.title}</h2>
+                <span className={`text-xs px-2 py-0.5 rounded-md font-medium ${
+                        selectedQuestion.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-500' :
+                        selectedQuestion.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-500' :
                         'bg-destructive/10 text-destructive'
                       }`}>
-                        {resource.difficulty}
-                      </span>
-                      <button className="text-sm text-primary font-medium hover:underline">Solve</button>
-                    </div>
-                  </div>
-                ))}
+                  {selectedQuestion.difficulty}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => {
+                    setIsRunning(true);
+                    setTerminalOutput("Compiling...");
+                    setTimeout(() => {
+                      setTerminalOutput("Running Test Cases...\nTest Case 1: Passed\nTest Case 2: Passed\nTest Case 3: Passed\n\nResult: ACCEPTED! 🎉");
+                      setIsRunning(false);
+                    }, 1500);
+                  }}
+                  disabled={isRunning}
+                  className="bg-secondary text-foreground px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-secondary/80 flex items-center gap-2"
+                >
+                  {isRunning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Code className="w-4 h-4" />}
+                  Run Code
+                </button>
+                <button 
+                  onClick={() => {
+                    setIsRunning(true);
+                    setTerminalOutput("Submitting solution...");
+                    setTimeout(() => {
+                      setTerminalOutput("Submission Successful! \nRuntime: 52 ms (Beats 98.2%)\nMemory: 41.2 MB (Beats 84.1%)");
+                      setIsRunning(false);
+                    }, 2000);
+                  }}
+                  disabled={isRunning}
+                  className="bg-primary text-primary-foreground px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-primary/90 flex items-center gap-2"
+                >
+                  {isRunning ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trophy className="w-4 h-4" />}
+                  Submit
+                </button>
               </div>
             </div>
-          ) : (
+
+            <div className="flex-1 flex flex-col lg:flex-row">
+              {/* Problem Description Panel */}
+              <div className="w-full lg:w-1/3 border-r border-border p-6 overflow-y-auto bg-background">
+                <h3 className="text-xl font-bold mb-4">{selectedQuestion.title}</h3>
+                <div className="prose prose-sm dark:prose-invert">
+                  <p className="whitespace-pre-wrap leading-relaxed text-muted-foreground">{selectedQuestion.description}</p>
+                </div>
+              </div>
+
+              {/* Code Editor Panel */}
+              <div className="w-full lg:w-2/3 flex flex-col bg-[#0d1117]">
+                <div className="flex-1 relative">
+                  <textarea 
+                    className="w-full h-full bg-transparent text-gray-300 font-mono text-sm p-4 outline-none resize-none"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    spellCheck={false}
+                  />
+                </div>
+                
+                {/* Terminal Pane */}
+                <div className="h-48 border-t border-gray-800 bg-[#010409] p-4 font-mono text-xs overflow-y-auto">
+                  <div className="text-gray-500 mb-2 flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-gray-500" />
+                    Terminal Output
+                  </div>
+                  {terminalOutput ? (
+                    <div className="text-emerald-400 whitespace-pre-wrap">{terminalOutput}</div>
+                  ) : (
+                    <div className="text-gray-600 italic">Click Run Code to execute your solution.</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="lg:col-span-2 space-y-8">
+            {roadmap ? (
+              <div className="bg-background p-6 rounded-2xl border border-primary/20 shadow-sm relative overflow-hidden">
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <h2 className="text-xl font-bold mb-2">Your 6-Month Roadmap to {roadmap.role}</h2>
+                    <p className="text-sm text-muted-foreground">Estimated Timeline: {roadmap.estimated_months} months</p>
+                  </div>
+                  <button onClick={() => setRoadmap(null)} className="text-sm text-muted-foreground hover:text-foreground">
+                    &larr; Back to Hub
+                  </button>
+                </div>
+                
+                <div className="space-y-6">
+                  {roadmap.phases.map((phase: any, idx: number) => (
+                    <div key={idx} className="relative pl-8 before:absolute before:left-[11px] before:top-2 before:bottom-[-24px] before:w-0.5 before:bg-border last:before:hidden">
+                      <div className="absolute left-0 top-1.5 w-6 h-6 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center z-10">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                      </div>
+                      <div className="bg-secondary/30 rounded-xl p-4 border border-border">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-bold">{phase.name}</h3>
+                          <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-md">{phase.duration}</span>
+                        </div>
+                        
+                        <div className="mb-3">
+                          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Skills to Learn</p>
+                          <div className="flex flex-wrap gap-2">
+                            {phase.skills_to_learn.map((s: string, i: number) => (
+                              <span key={i} className="text-xs bg-background border border-border px-2 py-1 rounded-md">{s}</span>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Resources</p>
+                          <ul className="space-y-1">
+                            {phase.resources.map((r: string, i: number) => (
+                              <li key={i} className="text-sm flex items-center gap-2">
+                                <ArrowRight className="w-3 h-3 text-primary" /> {r}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : activeCategory ? (
+              <div className="bg-background p-6 rounded-2xl border border-border shadow-sm">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-xl font-bold flex items-center gap-2">
+                    {categories.find(c => c.name === activeCategory)?.name} Resources
+                  </h2>
+                  <button onClick={() => setActiveCategory(null)} className="text-sm text-muted-foreground hover:text-foreground">
+                    &larr; Back to Hub
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  {(mockResources[activeCategory] || []).map((resource, i) => (
+                    <div key={i} className="flex items-center justify-between p-4 bg-secondary/30 rounded-xl border border-border hover:border-primary/50 transition cursor-pointer">
+                      <div>
+                        <h3 className="font-semibold text-foreground">{resource.title}</h3>
+                        <p className="text-xs text-muted-foreground mt-1">{resource.type}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className={`text-xs px-2 py-1 rounded-md font-semibold ${
+                          resource.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-500' :
+                          resource.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-500' :
+                          'bg-destructive/10 text-destructive'
+                        }`}>
+                          {resource.difficulty}
+                        </span>
+                        <button onClick={() => handleSolveClick(resource)} className="text-sm text-primary font-medium hover:underline">Solve</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {categories.map(cat => (
                 <div 
