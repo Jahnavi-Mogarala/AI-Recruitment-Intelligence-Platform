@@ -1,15 +1,18 @@
-import chromadb
-from chromadb.config import Settings
+try:
+    import chromadb
+    from chromadb.config import Settings
+    chroma_client = chromadb.Client(Settings(is_persistent=True, persist_directory="./chroma_db"))
+except ImportError:
+    chroma_client = None
+
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 import os
 
-# Initialize local ChromaDB client
-chroma_client = chromadb.Client(Settings(is_persistent=True, persist_directory="./chroma_db"))
-
 def get_or_create_collection(name: str):
+    if not chroma_client: return None
     return chroma_client.get_or_create_collection(name=name)
 
 def index_document(collection_name: str, doc_id: str, text: str, metadata: dict = None):
@@ -29,6 +32,7 @@ def search_knowledge_base(collection_name: str, query: str, n_results: int = 3):
     Retrieves the most relevant documents for a given query.
     """
     collection = get_or_create_collection(collection_name)
+    if not collection: return []
     results = collection.query(
         query_texts=[query],
         n_results=n_results
