@@ -331,6 +331,7 @@ export default function LearningResourcesPage() {
             </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   );
