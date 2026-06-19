@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8000/api/v1";
+const API_BASE = "/_/backend/api/v1";
 
 export async function uploadResume(file: File) {
   const formData = new FormData();
