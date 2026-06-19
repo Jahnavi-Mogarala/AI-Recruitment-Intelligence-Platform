@@ -25,8 +25,8 @@ export default function Home() {
             <Link href="#pricing" className="hover:text-foreground transition">Pricing</Link>
           </nav>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm font-medium hover:text-primary transition">Log in</Link>
-            <Link href="/register" className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-sm hover:bg-primary/90 transition">
+            <Link href="/dashboard" className="text-sm font-medium hover:text-primary transition">Log in</Link>
+            <Link href="/dashboard" className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-sm hover:bg-primary/90 transition">
               Get Started
             </Link>
           </div>
