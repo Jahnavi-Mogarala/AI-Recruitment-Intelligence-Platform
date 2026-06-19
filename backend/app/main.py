@@ -5,8 +5,11 @@ from app.api.endpoints import resume, ml, interview, rag, roadmap, websockets
 from app.db.base_class import Base
 from app.db.session import engine
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+# Create database tables (gracefully fail if DB is unreachable in MVP)
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print(f"Warning: Could not connect to database during startup. {e}")
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
